@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Flavia Lara Unhas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #e83e8c;
+            --secondary-pink: #ff69b4;
+            --light-pink: #fff0f5;
+            --dark-pink: #c2185b;
+            --text-dark: #4a4a4a;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #f8bbd0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f0f5;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .app-container {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-pink);
+        }
+
+        .app-title {
+            font-size: 1.8rem;
+            color: var(--primary-pink);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--light-pink);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--primary-pink);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        .calendar-container {
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .month-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background-color: var(--light-pink);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary-pink);
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        .current-month {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-pink);
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: var(--light-pink);
+            font-weight: 500;
+        }
+
+        .calendar-day.header {
+            background-color: var(--primary-pink);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.available {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            cursor: pointer;
+        }
+
+        .calendar-day.available:hover {
+            background-color: #c8e6c9;
+        }
+
+        .calendar-day.unavailable {
+            background-color: #ffebee;
+            color: #c62828;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--primary-pink);
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .time-slot {
+            padding: 1rem;
+            background-color: var(--light-pink);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .time-slot:hover, .time-slot.selected {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        .time-slot.booked {
+            background-color: #ffcdd2;
+            color: #c62828;
+            cursor: not-allowed;
+        }
+
+        .service-selection {
+            margin-top: 2rem;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-pink);
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .service-card {
+            padding: 1.5rem;
+            background-color: var(--light-pink);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-pink);
+        }
+
+        .service-card.selected {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-pink);
+        }
+
+        .service-card.selected .service-icon {
+            color: white;
+        }
+
+        .service-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .booking-form {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light-pink);
+            border-radius: 10px;
+        }
+
+        .form-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-pink);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 62, 140, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .booking-summary {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light-pink);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-pink);
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-pink);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-label {
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .services, .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services, .time-slots {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+        <div class="logo-container">
+            <img src="images/logo-studio-flavia.jpg" alt="Logo" class="logo">
+            <div class="logo-text">
+                <div class="logo">Studio Flavia Lara Unhas</div>
+                <div class="tagline">Beleza e cuidado para suas mãos</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="container main-content">
+        <div class="app-container">
+            <div class="app-header">
+                <h2 class="app-title">Sistema de Agendamento</h2>
+                <div class="user-status">
+                    <span id="current-date"></span>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('agendamento')">Agendamento</button>
+                <button class="tab-btn" onclick="showTab('gerenciamento')">Gerenciamento</button>
+            </div>
+
+            <div id="agendamento-tab">
+                <div class="alert" id="alert-message"></div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="month-nav">
+                            <button class="nav-btn" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="nav-btn" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="current-month" id="current-month">Junho 2023</div>
+                        <div class="working-hours">
+                            <span>Horário: Ter-Sáb: 9h-18h</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar" id="calendar">
+                        <!-- Gerado via JavaScript -->
+                    </div>
+                </div>
+
+                <div id="time-selection" style="display: none;">
+                    <h3 class="service-title">Horários disponíveis para <span id="selected-date"></span></h3>
+                    <div class="time-slots" id="time-slots">
+                        <!-- Gerado via JavaScript -->
+                    </div>
+                </div>
+
+                <div class="service-selection" id="service-selection" style="display: none;">
+                    <h3 class="service-title">Selecione o Serviço</h3>
+                    <div class="services">
+                        <div class="service-card" data-service="Unha Completa" data-price="45.00">
+                            <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+                            <div class="service-name">Unha Completa</div>
+                            <div class="service-price">R$ 45,00</div>
+                        </div>
+                        <div class="service-card" data-service="Esmalte Simples" data-price="25.00">
+                            <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                            <div class="service-name">Esmalte Simples</div>
+                            <div class="service-price">R$ 25,00</div>
+                        </div>
+                        <div class="service-card" data-service="Esmaltação em Gel" data-price="60.00">
+                            <div class="service-icon"><i class="fas fa-gem"></i></div>
+                            <div class="service-name">Esmaltação em Gel</div>
+                            <div class="service-price">R$ 60,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-form" id="booking-form" style="display: none;">
+                    <h3 class="form-title">Informações do Cliente</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nome Completo</label>
+                        <input type="text" class="form-input" id="name" placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Telefone</label>
+                        <input type="tel" class="form-input" id="phone" placeholder="(41) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input type="email" class="form-input" id="email" placeholder="seu@email.com">
+                    </div>
+                    <button class="btn btn-primary" id="confirm-booking">
+                        <i class="fas fa-calendar-check"></i> Confirmar Agendamento
+                    </button>
+                </div>
+
+                <div class="booking-summary" id="booking-summary" style="display: none;">
+                    <h3 class="summary-title">Resumo do Agendamento</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Serviço:</span>
+                        <span id="summary-service">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Data:</span>
+                        <span id="summary-date">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Horário:</span>
+                        <span id="summary-time">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Duração:</span>
+                        <span id="summary-duration">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Valor:</span>
+                        <span id="summary-price">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gerenciamento-tab" style="display: none;">
+                <h3 class="service-title">Gerenciar Agendamentos</h3>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="confirmado">Confirmados</button>
+                    <button class="filter-btn" data-filter="pendente">Pendentes</button>
+                    <button class="filter-btn" data-filter="cancelado">Cancelados</button>
+                </div>
+                <div id="agendamentos-list">
+                    <!-- Lista de agendamentos será preenchida via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Studio Flavia Lara Unhas</h3>
+                    <p>Especialista em cuidados com as unhas, oferecendo serviços de qualidade com produtos premium.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Horário de Funcionamento</h3>
+                    <p>Terça a Sábado: 9h às 18h</p>
+                    <p>Domingo e Segunda: Fechado</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Contato</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(41) 99604-8954</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>flavialara8076@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Curitiba, PR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=5541996048954" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let selectedService = null;
+        let selectedPrice = null;
+        let bookedSlots = {};
+
+        // Preços e durações dos serviços
+        const services = {
+            'Unha Completa': { price: 45.00, duration: '60 minutos' },
+            'Esmalte Simples': { price: 25.00, duration: '45 minutos' },
+            'Esmaltação em Gel': { price: 60.00, duration: '75 minutos' }
+        };
+
+        // Horários de trabalho
+        const workHours = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+
+        // Dias da semana
+        const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar data atual
+            document.getElementById('current-date').textContent = formatDate(new Date());
+            
+            // Inicializar calendário
+            renderCalendar();
+            
+            // Carregar agendamentos existentes
+            loadBookedSlots();
+            
+            // Configurar event listeners
+            setupEventListeners();
+        });
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Seleção de serviços
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    selectedService = this.dataset.service;
+                    selectedPrice = this.dataset.price;
+                    
+                    updateBookingSummary();
+                    document.getElementById('booking-form').style.display = 'block';
+                });
+            });
+
+            // Confirmação de agendamento
+            document.getElementById('confirm-booking').addEventListener('click', confirmBooking);
+        }
+
+        // Função para mostrar/ocultar abas
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(tabName)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            document.getElementById('agendamento-tab').style.display = tabName === 'agendamento' ? 'block' : 'none';
+            document.getElementById('gerenciamento-tab').style.display = tabName === 'gerenciamento' ? 'block' : 'none';
+            
+            if (tabName === 'gerenciamento') {
+                loadAgendamentos();
+            }
+        }
+
+        // Renderizar calendário
+        function renderCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            const monthYearEl = document.getElementById('current-month');
+            
+            // Limpar calendário
+            calendarEl.innerHTML = '';
+            
+            // Adicionar cabeçalhos dos dias da semana
+            daysOfWeek.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day header';
+                dayEl.textContent = day;
+                calendarEl.appendChild(dayEl);
+            });
+            
+            // Configurar data para o primeiro dia do mês
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            
+            // Ajustar o primeiro dia para domingo
+            const startDay = firstDay.getDay();
+            
+            // Preencher dias do mês anterior
+            const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+            for (let i = startDay - 1; i >= 0; i--) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day unavailable';
+                dayEl.textContent = prevMonthLastDay - i;
+                calendarEl.appendChild(dayEl);
+            }
+            
+            // Preencher dias do mês atual
+            const today = new Date();
+            for (let i = 1; i <= lastDay.getDate(); i++) {
+                const dayEl = document.createElement('div');
+                const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                
+                // Verificar se é um dia disponível (terça a sábado)
+                const isAvailable = dayDate.getDay() >= 2 && dayDate.getDay() <= 6 && dayDate >= new Date(today.setHours(0,0,0,0));
+                
+                dayEl.className = `calendar-day ${isAvailable ? 'available' : 'unavailable'}`;
+                dayEl.textContent = i;
+                
+                // Destacar dia atual
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+                
+                if (isAvailable) {
+                    dayEl.addEventListener('click', () => selectDate(dayDate));
+                }
+                
+                calendarEl.appendChild(dayEl);
+            }
+            
+            // Atualizar cabeçalho com mês/ano
+            const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                               'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            monthYearEl.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        }
+
+        // Mudar mês no calendário
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        // Selecionar data
+        function selectDate(date) {
+            selectedDate = date;
+            document.getElementById('selected-date').textContent = formatDate(date);
+            document.getElementById('time-selection').style.display = 'block';
+            document.getElementById('service-selection').style.display = 'block';
+            
+            // Renderizar horários disponíveis
+            renderTimeSlots(date);
+            
+            // Rolar para a seção de horários
+            document.getElementById('time-selection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Renderizar horários disponíveis
+        function renderTimeSlots(date) {
+            const timeSlotsEl = document.getElementById('time-slots');
+            timeSlotsEl.innerHTML = '';
+            
+            const dateStr = date.toISOString().split('T')[0];
+            
+            workHours.forEach(time => {
+                const timeSlotEl = document.createElement('div');
+                timeSlotEl.className = `time-slot ${bookedSlots[dateStr] && bookedSlots[dateStr].includes(time) ? 'booked' : ''}`;
+                timeSlotEl.textContent = time;
+                
+                if (!(bookedSlots[dateStr] && bookedSlots[dateStr].includes(time))) {
+                    timeSlotEl.addEventListener('click', function() {
+                        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+                        this.classList.add('selected');
+                        selectedTime = time;
+                        updateBookingSummary();
+                    });
+                }
+                
+                timeSlotsEl.appendChild(timeSlotEl);
+            });
+        }
+
+        // Atualizar resumo do agendamento
+        function updateBookingSummary() {
+            if (selectedDate && selectedTime && selectedService) {
+                document.getElementById('booking-summary').style.display = 'block';
+                document.getElementById('summary-service').textContent = selectedService;
+                document.getElementById('summary-date').textContent = formatDate(selectedDate);
+                document.getElementById('summary-time').textContent = selectedTime;
+                document.getElementById('summary-duration').textContent = services[selectedService].duration;
+                document.getElementById('summary-price').textContent = `R$ ${services[selectedService].price.toFixed(2)}`;
+            }
+        }
+
+        // Confirmar agendamento
+        function confirmBooking() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            
+            if (!name || !phone || !email) {
+                showAlert('Por favor, preencha todos os campos.', 'error');
+                return;
+            }
+            
+            if (!selectedDate || !selectedTime || !selectedService) {
+                showAlert('Por favor, selecione data, horário e serviço.', 'error');
+                return;
+            }
+            
+            const agendamento = {
+                nome: name,
+                telefone: phone,
+                email: email,
+                servico: selectedService,
+                data: selectedDate.toISOString(),
+                horario: selectedTime,
+                valor: services[selectedService].price
+            };
+            
+            // Enviar para o servidor
+            fetch('/api/agendamentos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(agendamento)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    showAlert(data.message, 'error');
+                } else {
+                    showAlert('Agendamento confirmado com sucesso!', 'success');
+                    resetForm();
+                    loadBookedSlots(); // Recarregar horários ocupados
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showAlert('Erro ao confirmar agendamento. Tente novamente.', 'error');
+            });
+        }
+
+        // Carregar horários ocupados
+        function loadBookedSlots() {
+            if (!selectedDate) return;
+            
+            const dateStr = selectedDate.toISOString().split('T')[0];
+            
+            fetch(`/api/agendamentos/ocupados/${dateStr}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!bookedSlots[dateStr]) {
+                        bookedSlots[dateStr] = [];
+                    }
+                    bookedSlots[dateStr] = data;
+                    renderTimeSlots(selectedDate);
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar horários ocupados:', error);
+                });
+        }
+
+        // Carregar agendamentos para gerenciamento
+        function loadAgendamentos() {
+            fetch('/api/agendamentos')
+                .then(response => response.json())
+                .then(data => {
+                    renderAgendamentosList(data);
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar agendamentos:', error);
+                });
+        }
+
+        // Renderizar lista de agendamentos
+        function renderAgendamentosList(agendamentos) {
+            const listEl = document.getElementById('agendamentos-list');
+            listEl.innerHTML = '';
+            
+            if (agendamentos.length === 0) {
+                listEl.innerHTML = '<p>Nenhum agendamento encontrado.</p>';
+                return;
+            }
+            
+            agendamentos.forEach(agendamento => {
+                const agendamentoEl = document.createElement('div');
+                agendamentoEl.className = 'agendamento-item';
+                agendamentoEl.innerHTML = `
+                    <div class="agendamento-header">
+                        <strong>${agendamento.nome}</strong> - ${agendamento.telefone}
+                        <span class="status-badge ${agendamento.status}">${agendamento.status}</span>
+                    </div>
+                    <div>${formatDate(new Date(agendamento.data))} às ${agendamento.horario}</div>
+                    <div>${agendamento.servico} - R$ ${agendamento.valor.toFixed(2)}</div>
+                    <div class="agendamento-actions">
+                        <button class="btn btn-small" onclick="changeStatus('${agendamento.id}', 'confirmado')">Confirmar</button>
+                        <button class="btn btn-small" onclick="changeStatus('${agendamento.id}', 'cancelado')">Cancelar</button>
+                    </div>
+                `;
+                listEl.appendChild(agendamentoEl);
+            });
+        }
+
+        // Mudar status do agendamento
+        function changeStatus(id, status) {
+            fetch(`/api/agendamentos/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadAgendamentos(); // Recarregar lista
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                showAlert('Erro ao alterar status do agendamento.', 'error');
+            });
+        }
+
+        // Mostrar alerta
+        function showAlert(message, type) {
+            const alertEl = document.getElementById('alert-message');
+            alertEl.textContent = message;
+            alertEl.className = `alert alert-${type}`;
+            alertEl.style.display = 'block';
+            
+            setTimeout(() => {
+                alertEl.style.display = 'none';
+            }, 5000);
+        }
+
+        // Resetar formulário
+        function resetForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.querySelectorAll('.service-card').forEach(card => card.classList.remove('selected'));
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            document.getElementById('booking-form').style.display = 'none';
+            document.getElementById('booking-summary').style.display = 'none';
+            
+            selectedDate = null;
+            selectedTime = null;
+            selectedService = null;
+        }
+
+        // Formatar data para exibição
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('pt-BR', { 
+                weekday: 'long', 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            }).format(date);
+        }
+    </script>
+</body>
+</html>
